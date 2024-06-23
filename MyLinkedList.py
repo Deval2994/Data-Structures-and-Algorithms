@@ -59,9 +59,9 @@ class LinkedList:
         newNode = Node(value)
 
         while current.next is not None:
-            current = current.next
             if current.data == after:
                 break
+            current = current.next
 
         if current.next == None:
             return print(f"No such element found : {after}")
@@ -76,6 +76,31 @@ class LinkedList:
         self.head = None
         self.n = 0
 
+    def delete_head(self):
+        if self.head == None:
+            return print("List is empty")
+        self.head = self.head.next
+        self.n -= 1
+
+    def delete_tail(self):
+        if self.head == None:
+            return print("List is empty")
+        current = self.head
+        while current.next.next is not None:
+            current = current.next
+        current.next = None
+        self.n -= 1
+
+    def remove(self,value):
+        if self.head == None:
+            return print("List is empty")
+        current = self.head
+        while current.next.data != value:
+            current = current.next
+
+        memory = current.next.next
+        current.next = memory
+        self.n -= 1
 
 l = LinkedList()
 
@@ -89,8 +114,13 @@ l.append(9)
 l.append(8)
 l.append(6)
 
-l.append_after(23, 20)
+print(l.traverse())
+l.append_after(2, 20)
 
-l.clear()
+print(l.traverse())
 
+l.delete_tail()
+print(l.traverse())
+
+l.remove(7)
 print(l.traverse())
