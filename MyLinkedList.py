@@ -91,16 +91,42 @@ class LinkedList:
         current.next = None
         self.n -= 1
 
-    def remove(self,value):
+    def remove(self, value):
         if self.head == None:
             return print("List is empty")
         current = self.head
+        if current.data == value:
+            self.delete_head()
+            return
         while current.next.data != value:
             current = current.next
 
         memory = current.next.next
         current.next = memory
         self.n -= 1
+
+    def search(self, item):
+        current = self.head
+        position = 0
+        while current.next is not None:
+            if current.data == item:
+                return position
+            current = current.next
+            position += 1
+        return "Item not found"
+
+    def __getitem__(self, item):
+        current = self.head
+        if item > self.n:
+            return "index out of bound"
+        for i in range(item):
+            current = current.next
+        return current.data
+
+    def __delitem__(self, key):
+
+        self.remove(self.__getitem__(key))
+
 
 l = LinkedList()
 
@@ -113,14 +139,9 @@ l.append(7)
 l.append(9)
 l.append(8)
 l.append(6)
-
 print(l.traverse())
-l.append_after(2, 20)
-
-print(l.traverse())
-
-l.delete_tail()
-print(l.traverse())
-
-l.remove(7)
+print(l[0])
+# del l[2]
+del l[0]
+# del l[4]
 print(l.traverse())
