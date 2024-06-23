@@ -24,12 +24,37 @@ class LinkedList:
         self.head = newNode
         self.n += 1
 
+    def traverse(self):
+        current = self.head
+
+        result = ''
+
+        while current is not None:
+            result += f" {current.data} ->"
+            current = current.next
+
+        return result[1:-3]
+
+    def append(self, value):
+        if self.head == None:
+            self.insert_node(value)
+            return
+
+        current = self.head
+
+        while current.next != None:
+            current = current.next
+
+        newNode = Node(value)
+        current.next = newNode
+        self.n += 1
+
+
 
 l = LinkedList()
-
-l.insert_node(1)
-l.insert_node(2)
-l.insert_node(3)
-l.insert_node(4)
-l.insert_node(5)
-print()
+l.insert_node(44)
+l.append(7)
+l.append(9)
+l.append(8)
+l.append(6)
+print(l.traverse())
