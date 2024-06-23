@@ -72,6 +72,10 @@ class LinkedList:
         current.next = memory
         self.n = + 1
 
+    def clear(self):
+        self.head = None
+        self.n = 0
+
 
 l = LinkedList()
 
@@ -86,5 +90,7 @@ l.append(8)
 l.append(6)
 
 l.append_after(23, 20)
+
+l.clear()
 
 print(l.traverse())
