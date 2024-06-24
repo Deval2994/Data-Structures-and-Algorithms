@@ -1,7 +1,7 @@
 import ctypes
 
 
-class MyList():
+class MyList:
 
     def __init__(self):
         self.size = 1  # maximum capacity of array
@@ -76,20 +76,3 @@ class MyList():
     def __createArray(self, capacity):
         return (capacity * ctypes.py_object)()
 
-
-l = MyList()
-l.append("hello")
-l.append("44.4")
-l.append(154)
-l.append(False)
-l.append("dev")
-l.append(456)
-
-print(l)
-l.insert(1,56)
-print(l)
-del l[1]
-print(l)
-
-l.remove("w")
-print(l)

@@ -127,21 +127,3 @@ class LinkedList:
 
         self.remove(self.__getitem__(key))
 
-
-l = LinkedList()
-
-l.insert_node(1)
-l.insert_node(2)
-l.insert_node(3)
-
-l.insert_node(4)
-l.append(7)
-l.append(9)
-l.append(8)
-l.append(6)
-print(l.traverse())
-print(l[0])
-# del l[2]
-del l[0]
-# del l[4]
-print(l.traverse())
