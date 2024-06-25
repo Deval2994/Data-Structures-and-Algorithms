@@ -36,3 +36,15 @@ print(ll[0])
 del ll[0]
 # del l[4]
 print(ll.traverse())
+
+
+from MyStack import Stack
+s = Stack()
+# s.push(5)
+# s.push(3)
+# s.push(6)
+print("Stack \n")
+print(s.traverse())
+print(s.peek())
+s.pop()
+print(s.traverse())
