@@ -126,4 +126,3 @@ class LinkedList:
     def __delitem__(self, key):
 
         self.remove(self.__getitem__(key))
-
