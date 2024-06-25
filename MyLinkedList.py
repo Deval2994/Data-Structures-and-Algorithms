@@ -117,7 +117,7 @@ class LinkedList:
 
     def __getitem__(self, item):
         current = self.head
-        if item > self.n:
+        if item >= self.n:
             return "index out of bound"
         for i in range(item):
             current = current.next
