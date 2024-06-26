@@ -24,7 +24,7 @@ class LinkedList:
         self.head = newNode
         self.n += 1
 
-    def traverse(self):
+    def __str__(self):
         current = self.head
 
         result = ''
@@ -34,6 +34,17 @@ class LinkedList:
             current = current.next
 
         return result[1:-3]
+
+    def traverse(self):
+        current = self.head
+
+        result = ''
+
+        while current is not None:
+            result += f" {current.data} ->"
+            current = current.next
+
+        return print(result[1:-3])
 
     def append(self, value):
 
@@ -126,3 +137,13 @@ class LinkedList:
     def __delitem__(self, key):
 
         self.remove(self.__getitem__(key))
+
+    def reverse(self):
+        current = self.head
+        prev = None
+        while current is not None:
+            next_node = current.next
+            current.next = prev
+            prev = current
+            current = next_node
+        self.head = prev
