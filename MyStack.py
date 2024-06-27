@@ -34,3 +34,4 @@ class Stack:
         while current is not None:
             print(current.data)
             current = current.next
+
