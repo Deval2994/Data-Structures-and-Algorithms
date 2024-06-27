@@ -31,8 +31,6 @@ class Stack:
         if self.isEmpty():
             return "Empty Stack"
         current = self.top
-        result = ""
-        while current != None:
-            result += f"{current.data}\n"
+        while current is not None:
+            print(current.data)
             current = current.next
-        return result[:-1]

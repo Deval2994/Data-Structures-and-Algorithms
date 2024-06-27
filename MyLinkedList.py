@@ -44,7 +44,7 @@ class LinkedList:
             result += f" {current.data} ->"
             current = current.next
 
-        return print(result[1:-3])
+        print(result[1:-3])
 
     def append(self, value):
 
