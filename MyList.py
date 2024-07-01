@@ -71,7 +71,7 @@ class MyList:
 
     def remove(self, target):
         index = self.find(target)
-        self.__delitem__(index) if type(index) == int else None
+        self.__delitem__(index) if type(index) == int else print("Item not found")
 
     def __createArray(self, capacity):
         return (capacity * ctypes.py_object)()
