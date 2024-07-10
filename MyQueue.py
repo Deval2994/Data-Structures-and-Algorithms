@@ -5,6 +5,7 @@ class MyQueue:
     def __init__(self):
         self.rear = None
         self.front = None
+        self.n = 0
 
     def enqueue(self, value):
         new_node = Node(value)
@@ -14,12 +15,17 @@ class MyQueue:
         else:
             self.rear.next = new_node
             self.rear = new_node
+        self.n += 1
 
     def dequeue(self):
         if self.front is None:
             print("Empty Queue")
         else:
             self.front = self.front.next
+            self.n -= 1
+
+    def __len__(self):
+        return  self.n
 
     def  front_item(self):
         if self.front is not None:
