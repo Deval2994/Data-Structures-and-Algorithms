@@ -1,7 +1,7 @@
 from MyLinkedList import Node
 
 
-class QueueList:
+class MyQueue:
     def __init__(self):
         self.rear = None
         self.front = None
