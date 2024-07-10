@@ -29,6 +29,9 @@ class MyQueue:
         if self.front is not None:
             return self.rear.data
 
+    def isEmpty(self):
+        return self.front is None
+
     def traverse(self):
         if self.front is None:
             print("Empty Queue")
@@ -37,4 +40,4 @@ class MyQueue:
             while current is not None:
                 print(current.data, end=" ")
                 current = current.next
-
+            print()
