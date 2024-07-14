@@ -25,13 +25,13 @@ class MyQueue:
             self.n -= 1
 
     def __len__(self):
-        return  self.n
+        return self.n
 
-    def  front_item(self):
+    def front_item(self):
         if self.front is not None:
             return self.front.data
 
-    def  rear_item(self):
+    def rear_item(self):
         if self.front is not None:
             return self.rear.data
 
