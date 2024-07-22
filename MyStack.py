@@ -42,5 +42,6 @@ class Stack:
             return "Empty Stack"
         current = self.top
         while current is not None:
-            print(current.data)
+            print(current.data, end=" ")
             current = current.next
+        print()
