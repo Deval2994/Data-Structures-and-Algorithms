@@ -1,4 +1,4 @@
-class Dictionary:  # Linear probing
+class LP_Dictionary:  # Linear probing
 
     def __init__(self, size):
         self.size = size
@@ -49,16 +49,73 @@ class Dictionary:  # Linear probing
         return "item not found"
 
 
+class Node:
 
-d = Dictionary(3)
+    def __init__(self, key, value):
+        self.key = key
+        self.data = value
+        self.next = None
+        self.n = 0
 
-print(d.slot, "\n", d.data)
-d["python"] = 34
-d["java"] = 65
-d["c++"] = 554
-print("*" * 80)
-print(d.slot, "\n", d.data)
 
-python_value = d.get("java")
+class LinkedList:
 
-print(python_value)
+    def __init__(self):
+        # Empty Liked list
+        self.head = None
+        self.n = 0
+
+    def __len__(self):
+        return self.n
+
+    def insert_node(self, key, value):  # link 2
+        newNode = Node(key, value)
+
+        newNode.next = self.head
+
+        self.head = newNode
+        self.n += 1
+
+    def traverse(self):
+        current = self.head
+
+        result = ''
+
+        while current is not None:
+            result += f" {current.data} ->"
+            current = current.next
+
+        print(result[1:-3])
+
+    def remove(self, item):
+        if self.head == None:
+            return print("List is empty")
+        current = self.head
+        if current.data == item:
+            self.head = self.head.next
+            return
+
+        while current.next.data != item:
+            current = current.next
+
+        memory = current.next.next
+        current.next = memory
+        self.n -= 1
+
+    def search(self, item):
+        current = self.head
+        position = 0
+        while current.next is not None:
+            if current.data == item:
+                return position
+            current = current.next
+            position += 1
+        return "Item not found"
+
+
+class Chain_Dictionary:
+
+    def __init__(self, size):
+        self.size = size
+        self.slot = [None] * self.size
+        self.data = [None] * self.size
