@@ -166,9 +166,6 @@ class Chain_Dictionary:
     def hash_function(self, key):
         return abs(hash(key)) % self.size
 
-    def rehash(self, prev_hash):
-        return (prev_hash + 1) % self.size
-
     def get(self, key):
         current = self.found_key(key)
 
