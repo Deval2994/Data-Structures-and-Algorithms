@@ -6,7 +6,7 @@ class LP_Dictionary:  # Linear probing
         self.data = [None] * self.size
 
     def put(self, key, value):
-        hash_value = self.has_function(key)
+        hash_value = self.hash_function(key)
 
         if self.slot[hash_value] is None:
             self.slot[hash_value] = key
@@ -28,7 +28,7 @@ class LP_Dictionary:  # Linear probing
     def __setitem__(self, key, value):
         self.put(key, value)
 
-    def has_function(self, key):
+    def hash_function(self, key):
         return abs(hash(key)) % self.size
 
     def rehash(self, prev_hash):
@@ -47,6 +47,16 @@ class LP_Dictionary:  # Linear probing
                 return "item not found"
 
         return "item not found"
+
+    def traverse(self):
+        result = "[ "
+        for i in range(len(self.slot)):
+            if self.slot[i] is not None:
+                result += f"{self.slot[i]} : {self.data[i]},\n  "
+        print(result[:-4], "]")
+
+
+from MyList import MyList
 
 
 class Node:
@@ -76,16 +86,16 @@ class LinkedList:
         self.head = newNode
         self.n += 1
 
-    def traverse(self):
+    def traverse(self):  # Need modification
         current = self.head
 
         result = ''
 
         while current is not None:
-            result += f" {current.data} ->"
+            result += f" {current.key} : {current.data} ->"
             current = current.next
 
-        print(result[1:-3])
+        print(f"--> {result[1:-3]}")
 
     def remove(self, item):
         if self.head == None:
@@ -119,3 +129,72 @@ class Chain_Dictionary:
         self.size = size
         self.slot = [None] * self.size
         self.data = [None] * self.size
+        self.n = 0
+        self.bucket = self.make_array(size)
+
+    def make_array(self, capacity):
+        l = MyList()
+
+        for i in range(capacity):
+            l.append(LinkedList())
+
+        return l
+
+    def put(self, key, value):
+        bucket_index = self.hash_function(key)
+
+        ll = self.bucket[bucket_index]
+
+        current = self.found_key(key)
+
+        if current is None:
+            ll.insert_node(key, value)
+
+        elif current == -1:
+            new_node = Node(key, value)
+            current = ll.head
+            while current.next is not None:
+                current = current.next
+
+            current.next = new_node
+            self.n += 1
+
+        else:
+            current.data = value
+
+
+    def hash_function(self, key):
+        return abs(hash(key)) % self.size
+
+    def rehash(self, prev_hash):
+        return (prev_hash + 1) % self.size
+
+    def get(self, key):
+        current = self.found_key(key)
+
+        if current is not None and current != -1:
+            return current.data
+
+    def found_key(self, key):
+        bucket_index = self.hash_function(key)
+        ll = self.bucket[bucket_index]
+        current = ll.head
+        if current is None:
+            return None
+
+        if current.key == key:
+            return current
+
+        while current.next is not None:
+            if current.key == key:
+                return current
+            current = current.next
+
+        return -1
+
+    def traverse(self):
+        for bucket_index in range(self.size):
+            if self.bucket[bucket_index].head is not None:
+                self.bucket[bucket_index].traverse()
+
+
