@@ -97,15 +97,15 @@ class LinkedList:
 
         print(f"--> {result[1:-3]}")
 
-    def remove(self, item):
+    def remove(self, key):
         if self.head == None:
             return print("List is empty")
         current = self.head
-        if current.data == item:
+        if current.key == key:
             self.head = self.head.next
             return
 
-        while current.next.data != item:
+        while current.next.key != key:
             current = current.next
 
         memory = current.next.next
@@ -174,6 +174,11 @@ class Chain_Dictionary:
         if current is not None and current != -1:
             return current.data
 
+        return "Item not found"
+
+    def __getitem__(self, key):
+        return self.get(key)
+
     def found_key(self, key):
         bucket_index = self.hash_function(key)
         ll = self.bucket[bucket_index]
@@ -209,15 +214,13 @@ class Chain_Dictionary:
                 self.put(current.key, current.data)
                 current = current.next
 
+    def __setitem__(self, key, value):
+        self.put(key, value)
 
-c = Chain_Dictionary(3)
+    def __delitem__(self, key):
+        bucket_index = self.hash_function(key)
+        self.bucket[bucket_index].remove(key)
+        self.n -= 1
 
-c.put("python", 65)
-c.put("java", 76)
-c.put("javaScript", 34)
-c.put("C++", 84)
-c.put("C#", 79)
-c.put("ruby", 58)
-c.put("Django", 85)
-
-c.traverse()
+    def __len__(self):
+        return self.n
