@@ -127,8 +127,6 @@ class Chain_Dictionary:
 
     def __init__(self, size):
         self.size = size
-        self.slot = [None] * self.size
-        self.data = [None] * self.size
         self.n = 0
         self.bucket = self.make_array(size)
 
@@ -162,7 +160,6 @@ class Chain_Dictionary:
         else:
             current.data = value
 
-
     def hash_function(self, key):
         return abs(hash(key)) % self.size
 
@@ -193,5 +190,3 @@ class Chain_Dictionary:
         for bucket_index in range(self.size):
             if self.bucket[bucket_index].head is not None:
                 self.bucket[bucket_index].traverse()
-
-
