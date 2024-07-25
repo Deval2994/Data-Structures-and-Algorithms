@@ -86,7 +86,7 @@ class LinkedList:
         self.head = newNode
         self.n += 1
 
-    def traverse(self):  # Need modification
+    def traverse(self):
         current = self.head
 
         result = ''
@@ -149,16 +149,21 @@ class Chain_Dictionary:
             ll.insert_node(key, value)
 
         elif current == -1:
+            if self.n / self.size == 2:
+                self.rehash()
             new_node = Node(key, value)
             current = ll.head
             while current.next is not None:
                 current = current.next
 
             current.next = new_node
-            self.n += 1
+
 
         else:
             current.data = value
+            self.n -= 1
+
+        self.n += 1
 
     def hash_function(self, key):
         return abs(hash(key)) % self.size
@@ -190,3 +195,29 @@ class Chain_Dictionary:
         for bucket_index in range(self.size):
             if self.bucket[bucket_index].head is not None:
                 self.bucket[bucket_index].traverse()
+
+    def rehash(self):
+        self.n = 0
+        self.size *= 2
+        old_bucket = self.bucket
+        self.bucket = self.make_array(self.size)
+
+        for i in range(len(old_bucket)):
+            ll = old_bucket[i]
+            current = ll.head
+            while current is not None:
+                self.put(current.key, current.data)
+                current = current.next
+
+
+c = Chain_Dictionary(3)
+
+c.put("python", 65)
+c.put("java", 76)
+c.put("javaScript", 34)
+c.put("C++", 84)
+c.put("C#", 79)
+c.put("ruby", 58)
+c.put("Django", 85)
+
+c.traverse()
