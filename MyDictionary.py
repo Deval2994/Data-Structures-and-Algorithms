@@ -20,7 +20,7 @@ class LP_Dictionary:  # Linear probing
 
             else:
 
-                if self.slot[hash_value] is not None and self.slot[hash_value] != key:
+                while self.slot[hash_value] is not None and self.slot[hash_value] != key:
                     hash_value = self.rehash(hash_value)
 
                 self.slot[hash_value] = key
