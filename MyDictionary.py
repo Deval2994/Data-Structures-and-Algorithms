@@ -4,6 +4,7 @@ class LP_Dictionary:  # Linear probing
         self.size = size
         self.slot = [None] * self.size
         self.data = [None] * self.size
+        self.n = 0
 
     def put(self, key, value):
         hash_value = self.hash_function(key)
@@ -19,7 +20,7 @@ class LP_Dictionary:  # Linear probing
 
             else:
 
-                while self.slot[hash_value] is not None and self.slot[hash_value] != key:
+                if self.slot[hash_value] is not None and self.slot[hash_value] != key:
                     hash_value = self.rehash(hash_value)
 
                 self.slot[hash_value] = key
@@ -54,6 +55,12 @@ class LP_Dictionary:  # Linear probing
             if self.slot[i] is not None:
                 result += f"{self.slot[i]} : {self.data[i]},\n  "
         print(result[:-4], "]")
+
+    def __delitem__(self, key):
+        current_hash = self.hash_function(key)
+        while self.slot[current_hash] is not None:
+            self.slot[current_hash] = self.slot[current_hash + 1]
+            self.data[current_hash] = self.data[current_hash + 1]
 
 
 from MyList import MyList
