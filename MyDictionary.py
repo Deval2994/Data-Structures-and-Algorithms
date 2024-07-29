@@ -17,14 +17,17 @@ class LP_Dictionary:  # Linear probing
 
             if self.slot[hash_value] == key:
                 self.data[hash_value] = value
+                self.n -= 1
 
             else:
-
-                while self.slot[hash_value] is not None and self.slot[hash_value] != key:
+                if self.n == self.size:
+                    return print("Maximum limit reached")
+                if self.slot[hash_value] is not None and self.slot[hash_value] != key:
                     hash_value = self.rehash(hash_value)
 
                 self.slot[hash_value] = key
                 self.data[hash_value] = value
+        self.n += 1
 
     def __setitem__(self, key, value):
         self.put(key, value)
@@ -36,7 +39,7 @@ class LP_Dictionary:  # Linear probing
         return (prev_hash + 1) % self.size
 
     def get(self, key):
-        hash_value = self.has_function(key)
+        hash_value = self.hash_function(key)
         current_hash = hash_value
         while self.slot[current_hash] is not None:
             if self.slot[current_hash] == key:
@@ -58,9 +61,8 @@ class LP_Dictionary:  # Linear probing
 
     def __delitem__(self, key):
         current_hash = self.hash_function(key)
-        while self.slot[current_hash] is not None:
-            self.slot[current_hash] = self.slot[current_hash + 1]
-            self.data[current_hash] = self.data[current_hash + 1]
+        self.slot[current_hash] = None
+        self.data[current_hash] = None
 
 
 from MyList import MyList
